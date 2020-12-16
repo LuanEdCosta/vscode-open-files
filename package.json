@@ -14,13 +14,23 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:vscode-open-files.openAllFolderFiles"
+    "onCommand:vscode-open-files.openAllFolderFiles",
+    "onCommand:vscode-open-files.openRelatedFiles",
+    "onCommand:vscode-open-files.openFileInBrowser"
   ],
   "contributes": {
     "commands": [
       {
         "command": "vscode-open-files.openAllFolderFiles",
-        "title": "Open all files in the current folder"
+        "title": "Open all folder files"
+      },
+      {
+        "command": "vscode-open-files.openRelatedFiles",
+        "title": "Open related files"
+      },
+      {
+        "command": "vscode-open-files.openFileInBrowser",
+        "title": "Open file in browser"
       }
     ]
   },

@@ -1,29 +1,15 @@
 import * as vscode from 'vscode'
 
+import { OpenRelatedFiles } from './openRelatedFiles'
+import { OpenFileInBrowser } from './OpenFileInBrowser'
+import { OpenAllFolderFiles } from './openAllFolderFiles'
+import { RelatedFilesTreeView } from './relatedFilesTreeView'
+
 export function activate(context: vscode.ExtensionContext) {
-  const disposable = vscode.commands.registerCommand(
-    'vscode-open-files.openAllFolderFiles',
-    async () => {
-      const [rootPathUri] = vscode.workspace.workspaceFolders
-        ? vscode.workspace.workspaceFolders
-        : []
-
-      const workspacePath = rootPathUri.uri.fsPath
-
-      const uri = vscode.Uri.file(`${workspacePath}/javascript.js`)
-
-      vscode.workspace.openTextDocument(uri).then(
-        (document: vscode.TextDocument) => {
-          vscode.window.showTextDocument(document, 1, false)
-        },
-        (error: any) => {
-          console.error(error)
-        },
-      )
-    },
-  )
-
-  context.subscriptions.push(disposable)
+  new OpenRelatedFiles(context)
+  new OpenFileInBrowser(context)
+  new OpenAllFolderFiles(context)
+  new RelatedFilesTreeView(context)
 }
 
 export function deactivate() {}

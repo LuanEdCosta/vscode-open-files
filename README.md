@@ -25,6 +25,12 @@ Users appreciate release notes as you update your extension.
 
 Initial release of the extension.
 
+## :heart: TODO
+
+- [ ] Open context menu when click with right button of the mouse in a folder showing an option to open all files in that folder.
+- [ ] Command when using F1 to open all files from folder. The user must type which folder he wants to open.
+- [ ] Context menu in the code of a file to show an option to open all files in the folder that the file is.
+
 ---
 
 ## :man: Author
