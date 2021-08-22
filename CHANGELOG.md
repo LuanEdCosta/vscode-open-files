@@ -1,9 +1,7 @@
-# Change Log
+# Changelog
 
-All notable changes to the "vscode-open-files" extension will be documented in this file.
+This file documents all version releases.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
-
-## [Unreleased]
+## 0.1.0 - 2021-00-00
 
 - Initial release

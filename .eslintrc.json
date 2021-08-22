@@ -1,17 +1,24 @@
 {
-  "root": true,
+  "env": {
+    "es2020": true,
+    "node": true,
+    "jest": true
+  },
+  "globals": {
+    "BufferEncoding": true
+  },
+  "extends": ["standard", "plugin:prettier/recommended"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 6,
+    "ecmaVersion": 11,
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
-    "@typescript-eslint/naming-convention": "warn",
-    "@typescript-eslint/semi": [2, "never"],
-    "curly": "warn",
-    "eqeqeq": "warn",
-    "no-throw-literal": "warn",
-    "semi": "off"
+    "prettier/prettier": "error",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+    "no-control-regex": "off",
+    "no-new": 0
   }
 }

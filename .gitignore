@@ -1,5 +1,7 @@
-out
-dist
-node_modules
+out/
+dist/
+testing/
+coverage/
+node_modules/
 .vscode-test/
 *.vsix

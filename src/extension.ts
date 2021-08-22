@@ -1,7 +1,7 @@
 import * as vscode from 'vscode'
 
 import { OpenRelatedFiles } from './openRelatedFiles'
-import { OpenFileInBrowser } from './OpenFileInBrowser'
+import { OpenFileInBrowser } from './openFileInBrowser'
 import { OpenAllFolderFiles } from './openAllFolderFiles'
 import { RelatedFilesTreeView } from './relatedFilesTreeView'
 
