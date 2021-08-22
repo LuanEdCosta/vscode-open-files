@@ -35,9 +35,26 @@ Initial release of the extension.
 
 ## :bulb: TODO
 
-- [ ] Open context menu when click with right button of the mouse in a folder showing an option to open all files in that folder.
-- [ ] Command when using F1 to open all files from folder. The user must type which folder he wants to open.
-- [ ] Context menu in the code of a file to show an option to open all files in the folder that the file is.
+**Context Menu**
+
+- `Right Click in Side Menu ` > Show option to open all files from folder.
+- `Right Click in File Content ` > Show option to open all files from folder.
+- `Right Click in Side Menu ` > Create option to open file in the default browser.
+- `Right Click in File Content ` > Create option to open file in the default browser.
+
+**Keyboard Shortcut**
+
+- `CTRL + ALT + R` > Open the search menu showing related files.
+- `CTRL + ALT + O` > Open all files from the current file parent folder.
+- `CTRL + ALT + B` > Open current focused file in the default browser.
+
+**Commands**
+
+- `F1 + Open Related Files` > `Ask file name` > Search for related files and show the search menu.
+
+**Fixes**
+
+- Fix open browser functionality. Use the [This Library](https://www.npmjs.com/package/open) to open in the default browser.
 
 ## :scroll: License
 
@@ -45,6 +62,7 @@ This project is under the [MIT license](https://github.com/LuanEdCosta/vscode-op
 
 ---
 
-## :man: Author
+## :man: Authors
 
-Luan Eduardo da Costa | [Github](https://github.com/LuanEdCosta) | [Linkedin](https://www.linkedin.com/in/luan-eduardo-costa-aaab591a7/)
+- Luan Eduardo da Costa | [Github](https://github.com/LuanEdCosta) | [Follow on Linkedin](https://www.linkedin.com/in/luan-eduardo-costa-aaab591a7/)
+- Kassio Aguirres Oliveira Barbosa | [Github](https://github.com/kassiogto) | [Follow on Linkedin](https://www.linkedin.com/in/k%C3%A1ssio-aguirres-191bbb197/)
