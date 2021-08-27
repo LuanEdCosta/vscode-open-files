@@ -3,13 +3,6 @@ import * as vscode from 'vscode'
 export class OpenAllFolderFiles {
   public disposable: vscode.Disposable
 
-  constructor() {
-    this.disposable = vscode.commands.registerCommand(
-      'vscode-open-files.openAllFolderFiles',
-      this._openAllFolderFiles,
-    )
-  }
-
   private async _openAllFolderFiles() {
     if (!vscode.workspace.workspaceFolders) {
       return vscode.window.showInformationMessage(
@@ -63,5 +56,12 @@ export class OpenAllFolderFiles {
         )
       })
     }
+  }
+
+  constructor() {
+    this.disposable = vscode.commands.registerCommand(
+      'vscode-open-files.openAllFolderFiles',
+      this._openAllFolderFiles,
+    )
   }
 }

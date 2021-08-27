@@ -3,13 +3,6 @@ import * as vscode from 'vscode'
 export class OpenRelatedFiles {
   public disposable: vscode.Disposable
 
-  constructor() {
-    this.disposable = vscode.commands.registerCommand(
-      'vscode-open-files.openRelatedFiles',
-      this._openRelatedFiles,
-    )
-  }
-
   private async _openRelatedFiles() {
     if (!vscode.workspace.workspaceFolders) {
       return vscode.window.showInformationMessage(
@@ -49,5 +42,12 @@ export class OpenRelatedFiles {
         )
       })
     }
+  }
+
+  constructor() {
+    this.disposable = vscode.commands.registerCommand(
+      'vscode-open-files.openRelatedFiles',
+      this._openRelatedFiles,
+    )
   }
 }
