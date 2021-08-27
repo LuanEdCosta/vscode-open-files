@@ -6,17 +6,17 @@ type Params = {
   scheme: string
 }
 
-export class OpenFileInBrowser {
+export class OpenFileInDefaultBrowser {
   disposable: vscode.Disposable
 
   constructor() {
     this.disposable = vscode.commands.registerCommand(
-      'vscode-open-files.openFileInBrowser',
-      this._openFileInBrowser,
+      'vscode-open-files.openFileInDefaultBrowser',
+      this._openFileInDefaultBrowser,
     )
   }
 
-  private async _openFileInBrowser(params?: Params) {
+  private async _openFileInDefaultBrowser(params?: Params) {
     if (params) {
       await vscode.env.openExternal(vscode.Uri.parse(`file://${params.path}`))
       return

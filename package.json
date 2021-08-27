@@ -22,7 +22,7 @@
   "activationEvents": [
     "onCommand:vscode-open-files.openAllFolderFiles",
     "onCommand:vscode-open-files.openRelatedFiles",
-    "onCommand:vscode-open-files.openFileInBrowser"
+    "onCommand:vscode-open-files.openFileInDefaultBrowser"
   ],
   "contributes": {
     "commands": [
@@ -35,14 +35,14 @@
         "title": "Open Related Files"
       },
       {
-        "command": "vscode-open-files.openFileInBrowser",
-        "title": "Open File in Browser"
+        "command": "vscode-open-files.openFileInDefaultBrowser",
+        "title": "Open File in Default Browser"
       }
     ],
     "menus": {
       "editor/context": [
         {
-          "command": "vscode-open-files.openFileInBrowser",
+          "command": "vscode-open-files.openFileInDefaultBrowser",
           "group": "2_OpenFiles"
         },
         {
@@ -52,7 +52,7 @@
       ],
       "explorer/context": [
         {
-          "command": "vscode-open-files.openFileInBrowser",
+          "command": "vscode-open-files.openFileInDefaultBrowser",
           "when": "!explorerResourceIsFolder",
           "group": "2_OpenFiles"
         },
