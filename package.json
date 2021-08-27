@@ -40,10 +40,31 @@
       }
     ],
     "menus": {
+      "editor/context": [
+        {
+          "command": "vscode-open-files.openFileInBrowser",
+          "group": "2_OpenFiles"
+        },
+        {
+          "command": "vscode-open-files.openRelatedFiles",
+          "group": "2_OpenFiles"
+        }
+      ],
       "explorer/context": [
         {
           "command": "vscode-open-files.openFileInBrowser",
-          "group": "OpenFiles@1"
+          "when": "!explorerResourceIsFolder",
+          "group": "2_OpenFiles"
+        },
+        {
+          "command": "vscode-open-files.openAllFolderFiles",
+          "when": "explorerResourceIsFolder",
+          "group": "2_OpenFiles"
+        },
+        {
+          "command": "vscode-open-files.openRelatedFiles",
+          "when": "!explorerResourceIsFolder",
+          "group": "2_OpenFiles"
         }
       ]
     }
