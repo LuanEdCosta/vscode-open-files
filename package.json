@@ -28,15 +28,15 @@
     "commands": [
       {
         "command": "vscode-open-files.openAllFolderFiles",
-        "title": "Open all folder files"
+        "title": "Open All Folder Files"
       },
       {
         "command": "vscode-open-files.openRelatedFiles",
-        "title": "Open related files"
+        "title": "Open Related Files"
       },
       {
         "command": "vscode-open-files.openFileInBrowser",
-        "title": "Open file in browser"
+        "title": "Open File in Browser"
       }
     ],
     "menus": {
