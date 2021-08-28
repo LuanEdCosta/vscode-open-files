@@ -40,7 +40,7 @@ export class OpenAllFolderFiles {
     await this._findFilesAndOpen(selectedFolder)
   }
 
-  private async _openAllFolderFiles(params?: OpenFiles.CommandParams) {
+  private async _openAllFolderFiles(params?: vscode.Uri) {
     try {
       if (!vscode.workspace.workspaceFolders) {
         vscode.window.showErrorMessage('No folder or workspace opened')
