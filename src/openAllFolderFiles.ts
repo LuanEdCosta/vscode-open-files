@@ -1,60 +1,62 @@
+import path from 'path'
 import * as vscode from 'vscode'
-
+import fastGlob from 'fast-glob'
 export class OpenAllFolderFiles {
   public disposable: vscode.Disposable
 
-  private async _openAllFolderFiles() {
-    if (!vscode.workspace.workspaceFolders) {
-      return vscode.window.showInformationMessage(
-        'No folder or workspace opened',
-      )
+  private async _findFilesAndOpen(folderName: string) {
+    const uriArray = await vscode.workspace.findFiles(`${folderName}/**`)
+
+    if (!uriArray.length) {
+      const message = `The selected folder is empty`
+      vscode.window.showErrorMessage(message)
+      return
     }
 
-    const search = await vscode.window.showInputBox({
-      placeHolder: 'Folder path (allow nested folders). Ex: src/components',
-      prompt: 'To open all files in the root directory type: **',
-      validateInput(value) {
-        const firstChar = value.trim().charAt(0)
+    uriArray.forEach((uri) => {
+      vscode.commands.executeCommand('vscode.open', uri, {
+        preview: false,
+        preserveFocus: true,
+      })
+    })
+  }
 
-        if (firstChar === '.' || firstChar === '/' || firstChar === '\\') {
-          return 'Do not put slash or a dot at the beginning of the path'
-        }
+  private async _selectFolderToOpen() {
+    const [rootFolder] = vscode.workspace.workspaceFolders || []
+    if (!rootFolder) return
 
-        return null
-      },
+    const folderNames = await fastGlob('**', {
+      cwd: rootFolder.uri.fsPath,
+      onlyDirectories: true,
+      ignore: ['node_modules'],
     })
 
-    const trimmedSearch = search?.trim()
+    const selectedFolder = await vscode.window.showQuickPick(folderNames, {
+      title: 'Select a Folder',
+    })
 
-    if (trimmedSearch) {
-      const lastChar = trimmedSearch.charAt(trimmedSearch.length - 1)
-      const hasSlashAtTheEnd = lastChar === '/' || lastChar === '\\'
+    if (!selectedFolder) return
 
-      const uriArray = await vscode.workspace.findFiles(
-        `${trimmedSearch}${hasSlashAtTheEnd ? '**' : '/**'}`,
-        '**​/node_modules/**',
-      )
+    await this._findFilesAndOpen(selectedFolder)
+  }
 
-      if (!uriArray.length) {
-        return vscode.window.showInformationMessage(
-          `No files found inside the folder "${trimmedSearch}"`,
-        )
+  private async _openAllFolderFiles(params?: OpenFiles.CommandParams) {
+    try {
+      if (!vscode.workspace.workspaceFolders) {
+        vscode.window.showErrorMessage('No folder or workspace opened')
+        return
       }
 
-      uriArray.forEach((uri) => {
-        vscode.workspace.openTextDocument(uri).then(
-          (document: vscode.TextDocument) => {
-            vscode.window.showTextDocument(document, {
-              preview: false,
-              preserveFocus: true,
-              viewColumn: 1,
-            })
-          },
-          (error) => {
-            vscode.window.showErrorMessage(error.message)
-          },
-        )
-      })
+      if (params) {
+        const [rootFolder] = vscode.workspace.workspaceFolders
+        const folderPath = path.relative(rootFolder.uri.fsPath, params.fsPath)
+        await this._findFilesAndOpen(folderPath)
+        return
+      }
+
+      await this._selectFolderToOpen()
+    } catch (e) {
+      vscode.window.showErrorMessage(e.message)
     }
   }
 
@@ -62,6 +64,7 @@ export class OpenAllFolderFiles {
     this.disposable = vscode.commands.registerCommand(
       'vscode-open-files.openAllFolderFiles',
       this._openAllFolderFiles,
+      this,
     )
   }
 }

@@ -112,6 +112,7 @@
     "webpack-cli": "^4.8.0"
   },
   "dependencies": {
+    "fast-glob": "^3.2.7",
     "open": "^8.2.1"
   }
 }
