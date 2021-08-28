@@ -1,4 +1,4 @@
-# :page_with_curl: Open Files
+# :open_file_folder: Open Files
 
   <div>
     <a href="https://github.com/LuanEdCosta/vscode-open-files/blob/master/LICENSE">
@@ -16,16 +16,17 @@
   </div>
 </div>
 
-This extensions give you more ways to open files in your workspace. This will let you get ready to code faster and increase your productivity.
-
 ---
 
-## :fire: Features
+Are you tired of opening every file manually? This extension is for you :open_mouth:
+
+## :fire: All Features
 
 - Open related files
-- Open all files in a folder
-- Open file in the browser
-- Configure files to open together
+- Open all folder files
+- Open file in the default browser
+
+- **TODO:** Configure files to open together
 
 ## :bookmark_tabs: Release Notes
 
@@ -33,34 +34,15 @@ This extensions give you more ways to open files in your workspace. This will le
 
 Initial release of the extension.
 
-## :bulb: TODO
+**Features**
 
-**Context Menu**
-
-- `Right Click in Side Menu ` > Show option to open all files from folder.
-- `Right Click in File Content ` > Show option to open all files from folder.
-- `Right Click in Side Menu ` > Create option to open file in the default browser.
-- `Right Click in File Content ` > Create option to open file in the default browser.
-
-**Keyboard Shortcut**
-
-- `CTRL + ALT + R` > Open the search menu showing related files.
-- `CTRL + ALT + O` > Open all files from the current file parent folder.
-- `CTRL + ALT + B` > Open current focused file in the default browser.
-
-**Commands**
-
-- `F1 + Open Related Files` > `Ask file name` > Search for related files and show the search menu.
-
-**Fixes**
-
-- Fix open browser functionality. Use the [This Library](https://www.npmjs.com/package/open) to open in the default browser.
+- Open related files
+- Open all folder files
+- Open file in default browser
 
 ## :scroll: License
 
-This project is under the [MIT license](https://github.com/LuanEdCosta/vscode-open-files/blob/master/LICENSE).
-
----
+This extension is under the [MIT License](https://github.com/LuanEdCosta/vscode-open-files/blob/master/LICENSE)
 
 ## :man: Authors
 
