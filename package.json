@@ -43,28 +43,29 @@
       "editor/context": [
         {
           "command": "vscode-open-files.openFileInDefaultBrowser",
-          "group": "2_OpenFiles"
+          "when": "resourceExtname == .html || resourceExtname == .md",
+          "group": "open-files"
         },
         {
           "command": "vscode-open-files.openRelatedFiles",
-          "group": "2_OpenFiles"
+          "group": "open-files"
         }
       ],
       "explorer/context": [
         {
           "command": "vscode-open-files.openFileInDefaultBrowser",
-          "when": "!explorerResourceIsFolder",
-          "group": "2_OpenFiles"
+          "when": "resourceExtname == .html || resourceExtname == .md",
+          "group": "open-files"
         },
         {
           "command": "vscode-open-files.openAllFolderFiles",
           "when": "explorerResourceIsFolder",
-          "group": "2_OpenFiles"
+          "group": "open-files"
         },
         {
           "command": "vscode-open-files.openRelatedFiles",
           "when": "!explorerResourceIsFolder",
-          "group": "2_OpenFiles"
+          "group": "open-files"
         }
       ]
     }
@@ -109,5 +110,8 @@
     "vscode-test": "^1.6.1",
     "webpack": "^5.51.1",
     "webpack-cli": "^4.8.0"
+  },
+  "dependencies": {
+    "open": "^8.2.1"
   }
 }

@@ -1,4 +1,5 @@
 import * as vscode from 'vscode'
+import open from 'open'
 
 type Params = {
   fsPath: string
@@ -7,28 +8,58 @@ type Params = {
 }
 
 export class OpenFileInDefaultBrowser {
-  disposable: vscode.Disposable
+  public disposable: vscode.Disposable
+
+  private _getActiveDocumentFsPath(): string | undefined {
+    return vscode.window.activeTextEditor?.document?.uri?.fsPath
+  }
+
+  private _canOpenInDefaultBrowser(fsPath: string | undefined): boolean {
+    return ['.html', '.md'].some((ext) => !!fsPath?.includes(ext))
+  }
 
   private async _openFileInDefaultBrowser(params?: Params) {
-    if (params) {
-      await vscode.env.openExternal(vscode.Uri.parse(`file://${params.path}`))
-      return
-    }
+    try {
+      const fsPath = params?.fsPath || this._getActiveDocumentFsPath()
 
-    if (!vscode.window.activeTextEditor) {
-      return vscode.window.showInformationMessage(
-        'You need to open a file and focus it in the VsCode to execute this command',
+      if (fsPath && this._canOpenInDefaultBrowser(fsPath)) {
+        await open(fsPath)
+        return
+      }
+
+      const typedFilePath = await vscode.window.showInputBox({
+        placeHolder: 'Type the file path. Ex: public/index.html',
+        prompt: 'You can only open one HTML or Markdown file',
+      })
+
+      if (!typedFilePath) return
+
+      const [foundFileUri] = await vscode.workspace.findFiles(
+        typedFilePath.trim(),
+        '**​/node_modules/**',
+        1,
+      )
+
+      if (foundFileUri && this._canOpenInDefaultBrowser(foundFileUri.fsPath)) {
+        await open(foundFileUri.fsPath)
+        return
+      }
+
+      vscode.window.showInformationMessage(
+        `The file "${typedFilePath}" was not found`,
+      )
+    } catch (e) {
+      vscode.window.showInformationMessage(
+        `Cannot open this file in the default browser`,
       )
     }
-
-    const openedFileUri = vscode.window.activeTextEditor.document.uri
-    await vscode.env.openExternal(openedFileUri)
   }
 
   constructor() {
     this.disposable = vscode.commands.registerCommand(
       'vscode-open-files.openFileInDefaultBrowser',
       this._openFileInDefaultBrowser,
+      this,
     )
   }
 }
