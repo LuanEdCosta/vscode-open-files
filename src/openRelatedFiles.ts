@@ -1,53 +1,116 @@
+import path from 'path'
 import * as vscode from 'vscode'
+import fastGlob from 'fast-glob'
 
 export class OpenRelatedFiles {
   public disposable: vscode.Disposable
 
-  private async _openRelatedFiles() {
-    if (!vscode.workspace.workspaceFolders) {
-      return vscode.window.showInformationMessage(
-        'No folder or workspace opened',
-      )
+  private _getFileNamesToSearchAndPathToIgnore(
+    rootPath: string,
+    filePath: string,
+  ) {
+    const { name } = path.parse(filePath)
+    const nameParts = name.split('.')
+    const filesNamesToSearch = nameParts.map((_, index) =>
+      nameParts.slice(0, index + 1).join('.'),
+    )
+
+    const pathToIgnore = path.relative(rootPath, filePath)
+    const pathToIgnoreFormatted = pathToIgnore.replace(/\\/g, '/')
+
+    return {
+      filesNamesToSearch,
+      pathToIgnore: pathToIgnoreFormatted,
+    }
+  }
+
+  private async _findRelatedFilesAndOpen(
+    rootPath: string,
+    filesNamesToSearch: string[],
+    pathToIgnore?: string,
+  ) {
+    const filesNames = await fastGlob(
+      filesNamesToSearch.map((fileName) => {
+        return `**/${fileName}*.*`
+      }),
+      {
+        unique: true,
+        cwd: rootPath,
+        onlyFiles: true,
+        ignore: pathToIgnore
+          ? ['node_modules', pathToIgnore]
+          : ['node_modules'],
+      },
+    )
+
+    if (!filesNames.length) {
+      vscode.window.showErrorMessage('No related files found')
+      return
     }
 
-    const search = await vscode.window.showInputBox({
-      placeHolder: 'Glob pattern to find related files. Ex: **/*.js',
-      prompt: 'Ex of patterns: *, **, ?, {abc,def}, [Aa], [a-z]',
+    const selectedFilePath = await vscode.window.showQuickPick(filesNames, {
+      title: 'Select Files To Open',
     })
 
-    if (search) {
-      const uriArray = await vscode.workspace.findFiles(
-        search,
-        '**​/node_modules/**',
+    if (!selectedFilePath) return
+
+    const uri = vscode.Uri.from({
+      scheme: 'file',
+      path: path.resolve(rootPath, selectedFilePath),
+    })
+
+    vscode.commands.executeCommand('vscode.open', uri, {
+      preview: false,
+      preserveFocus: true,
+    })
+  }
+
+  private async _openRelatedFiles(params?: vscode.Uri) {
+    if (!vscode.workspace.workspaceFolders) {
+      vscode.window.showErrorMessage('No folder or workspace opened')
+      return
+    }
+
+    const [rootFolder] = vscode.workspace.workspaceFolders
+
+    if (params) {
+      const { filesNamesToSearch, pathToIgnore } =
+        this._getFileNamesToSearchAndPathToIgnore(
+          rootFolder.uri.fsPath,
+          params.fsPath,
+        )
+
+      await this._findRelatedFilesAndOpen(
+        rootFolder.uri.fsPath,
+        filesNamesToSearch,
+        pathToIgnore,
       )
 
-      if (!uriArray.length) {
-        return vscode.window.showInformationMessage(
-          `No files found with: ${search}`,
-        )
-      }
-
-      uriArray.forEach((uri) => {
-        vscode.workspace.openTextDocument(uri).then(
-          (document: vscode.TextDocument) => {
-            vscode.window.showTextDocument(document, {
-              preview: false,
-              preserveFocus: true,
-              viewColumn: 1,
-            })
-          },
-          (error) => {
-            vscode.window.showErrorMessage(error.message)
-          },
-        )
-      })
+      return
     }
+
+    const fileNameToSearch = await vscode.window.showInputBox({
+      placeHolder: 'File name without extension. Ex: component',
+      prompt: 'Glob patterns are not allowed',
+      validateInput(value) {
+        if (fastGlob.isDynamicPattern(value)) {
+          return 'Glob patterns are not allowed'
+        }
+      },
+    })
+
+    if (!fileNameToSearch) return
+
+    await this._findRelatedFilesAndOpen(rootFolder.uri.fsPath, [
+      fileNameToSearch,
+    ])
   }
 
   constructor() {
     this.disposable = vscode.commands.registerCommand(
       'vscode-open-files.openRelatedFiles',
       this._openRelatedFiles,
+      this,
     )
   }
 }
