@@ -39,11 +39,11 @@ export class OpenFileInDefaultBrowser {
         return
       }
 
-      vscode.window.showInformationMessage(
+      vscode.window.showErrorMessage(
         `The file "${typedFilePath}" was not found`,
       )
     } catch (e) {
-      vscode.window.showInformationMessage(
+      vscode.window.showErrorMessage(
         `Cannot open this file in the default browser`,
       )
     }
