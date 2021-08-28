@@ -22,28 +22,50 @@
   "activationEvents": [
     "onCommand:vscode-open-files.openAllFolderFiles",
     "onCommand:vscode-open-files.openRelatedFiles",
-    "onCommand:vscode-open-files.openFileInBrowser"
+    "onCommand:vscode-open-files.openFileInDefaultBrowser"
   ],
   "contributes": {
     "commands": [
       {
         "command": "vscode-open-files.openAllFolderFiles",
-        "title": "Open all folder files"
+        "title": "Open All Folder Files"
       },
       {
         "command": "vscode-open-files.openRelatedFiles",
-        "title": "Open related files"
+        "title": "Open Related Files"
       },
       {
-        "command": "vscode-open-files.openFileInBrowser",
-        "title": "Open file in browser"
+        "command": "vscode-open-files.openFileInDefaultBrowser",
+        "title": "Open File in Default Browser"
       }
     ],
     "menus": {
+      "editor/context": [
+        {
+          "command": "vscode-open-files.openFileInDefaultBrowser",
+          "when": "resourceExtname == .html || resourceExtname == .md",
+          "group": "open-files"
+        },
+        {
+          "command": "vscode-open-files.openRelatedFiles",
+          "group": "open-files"
+        }
+      ],
       "explorer/context": [
         {
-          "command": "vscode-open-files.openFileInBrowser",
-          "group": "OpenFiles@1"
+          "command": "vscode-open-files.openFileInDefaultBrowser",
+          "when": "resourceExtname == .html || resourceExtname == .md",
+          "group": "open-files"
+        },
+        {
+          "command": "vscode-open-files.openAllFolderFiles",
+          "when": "explorerResourceIsFolder",
+          "group": "open-files"
+        },
+        {
+          "command": "vscode-open-files.openRelatedFiles",
+          "when": "!explorerResourceIsFolder",
+          "group": "open-files"
         }
       ]
     }
@@ -88,5 +110,9 @@
     "vscode-test": "^1.6.1",
     "webpack": "^5.51.1",
     "webpack-cli": "^4.8.0"
+  },
+  "dependencies": {
+    "fast-glob": "^3.2.7",
+    "open": "^8.2.1"
   }
 }
