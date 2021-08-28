@@ -1,12 +1,5 @@
 import * as vscode from 'vscode'
 import open from 'open'
-
-type Params = {
-  fsPath: string
-  path: string
-  scheme: string
-}
-
 export class OpenFileInDefaultBrowser {
   public disposable: vscode.Disposable
 
@@ -18,7 +11,7 @@ export class OpenFileInDefaultBrowser {
     return ['.html', '.md'].some((ext) => !!fsPath?.includes(ext))
   }
 
-  private async _openFileInDefaultBrowser(params?: Params) {
+  private async _openFileInDefaultBrowser(params?: OpenFiles.CommandParams) {
     try {
       const fsPath = params?.fsPath || this._getActiveDocumentFsPath()
 
