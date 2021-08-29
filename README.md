@@ -26,7 +26,19 @@ Are you tired of opening every file manually? This extension is for you :open_mo
 - Open all folder files
 - Open file in the default browser
 
-- **TODO:** Configure files to open together
+## :keyboard: Keybindings
+
+**Windows**
+
+- `CTRL + ALT + R` - Open related files
+- `CTRL + ALT + O` - Open all folder files
+- `CTRL + ALT + B` - Open file in the default browser
+
+**Mac**
+
+- `CMD + ALT + R` - Open related files
+- `CMD + ALT + O` - Open all folder files
+- `CMD + ALT + B` - Open file in the default browser
 
 ## :bookmark_tabs: Release Notes
 
@@ -39,6 +51,12 @@ Initial release of the extension.
 - Open related files
 - Open all folder files
 - Open file in default browser
+
+## :bulb: TODO
+
+- Create command to open file in specific browser
+- Create command to configure files to open together
+- Open all parent folder files when execute the `openAllFolderFiles` command with a file opened on the editor
 
 ## :scroll: License
 
