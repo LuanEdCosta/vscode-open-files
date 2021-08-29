@@ -8,8 +8,7 @@ export class OpenAllFolderFiles {
     const uriArray = await vscode.workspace.findFiles(`${folderName}/**`)
 
     if (!uriArray.length) {
-      const message = `The selected folder is empty`
-      vscode.window.showErrorMessage(message)
+      vscode.window.showInformationMessage('The selected folder is empty')
       return
     }
 
@@ -23,6 +22,7 @@ export class OpenAllFolderFiles {
 
   private async _selectFolderToOpen() {
     const [rootFolder] = vscode.workspace.workspaceFolders || []
+
     if (!rootFolder) return
 
     const folderNames = await fastGlob('**', {
@@ -43,7 +43,7 @@ export class OpenAllFolderFiles {
   private async _openAllFolderFiles(params?: vscode.Uri) {
     try {
       if (!vscode.workspace.workspaceFolders) {
-        vscode.window.showErrorMessage('No folder or workspace opened')
+        vscode.window.showInformationMessage('No folder or workspace opened')
         return
       }
 

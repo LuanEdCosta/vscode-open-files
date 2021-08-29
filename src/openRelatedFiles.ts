@@ -48,7 +48,7 @@ export class OpenRelatedFiles {
     )
 
     if (!filesNames.length) {
-      vscode.window.showErrorMessage('No related files found')
+      vscode.window.showInformationMessage('No related files found')
       return
     }
 
@@ -70,45 +70,49 @@ export class OpenRelatedFiles {
   }
 
   private async _openRelatedFiles(params?: vscode.Uri) {
-    if (!vscode.workspace.workspaceFolders) {
-      vscode.window.showErrorMessage('No folder or workspace opened')
-      return
-    }
+    try {
+      if (!vscode.workspace.workspaceFolders) {
+        vscode.window.showInformationMessage('No folder or workspace opened')
+        return
+      }
 
-    const [rootFolder] = vscode.workspace.workspaceFolders
-    const fileFsPath = params?.fsPath || this._getActiveDocumentFsPath()
+      const [rootFolder] = vscode.workspace.workspaceFolders
+      const fileFsPath = params?.fsPath || this._getActiveDocumentFsPath()
 
-    if (fileFsPath) {
-      const { filesNamesToSearch, pathToIgnore } =
-        this._getFileNamesToSearchAndPathToIgnore(
+      if (fileFsPath) {
+        const { filesNamesToSearch, pathToIgnore } =
+          this._getFileNamesToSearchAndPathToIgnore(
+            rootFolder.uri.fsPath,
+            fileFsPath,
+          )
+
+        await this._findRelatedFilesAndOpen(
           rootFolder.uri.fsPath,
-          fileFsPath,
+          filesNamesToSearch,
+          pathToIgnore,
         )
 
-      await this._findRelatedFilesAndOpen(
-        rootFolder.uri.fsPath,
-        filesNamesToSearch,
-        pathToIgnore,
-      )
+        return
+      }
 
-      return
+      const fileNameToSearch = await vscode.window.showInputBox({
+        placeHolder: 'File name without extension. Ex: component',
+        prompt: 'Glob patterns are not allowed',
+        validateInput(value) {
+          if (fastGlob.isDynamicPattern(value)) {
+            return 'Glob patterns are not allowed'
+          }
+        },
+      })
+
+      if (!fileNameToSearch) return
+
+      await this._findRelatedFilesAndOpen(rootFolder.uri.fsPath, [
+        fileNameToSearch,
+      ])
+    } catch (e) {
+      vscode.window.showErrorMessage(e.message)
     }
-
-    const fileNameToSearch = await vscode.window.showInputBox({
-      placeHolder: 'File name without extension. Ex: component',
-      prompt: 'Glob patterns are not allowed',
-      validateInput(value) {
-        if (fastGlob.isDynamicPattern(value)) {
-          return 'Glob patterns are not allowed'
-        }
-      },
-    })
-
-    if (!fileNameToSearch) return
-
-    await this._findRelatedFilesAndOpen(rootFolder.uri.fsPath, [
-      fileNameToSearch,
-    ])
   }
 
   constructor() {
