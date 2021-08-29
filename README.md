@@ -1,9 +1,6 @@
 # Open Files
 
   <div>
-    <a href="https://github.com/LuanEdCosta/vscode-open-files/blob/master/LICENSE">
-      <img alt="GitHub License" src="https://img.shields.io/github/license/luanedcosta/vscode-open-files.svg">
-    </a>
     <a href="https://github.com/luanedcosta/vscode-open-files/commits/master">
       <img alt="GitHub Last Commit" src="https://img.shields.io/github/last-commit/luanedcosta/vscode-open-files.svg">
     </a>
@@ -30,15 +27,15 @@ Are you tired of opening every file manually? This extension is for you.
 
 ### Open related files
 
-![Open Related Files Example](resources/OpenRelatedFiles.gif 'Open Related Files Example')
+<img src="resources/OpenRelatedFiles.gif" alt="Open Related Files Example" width="100%" />
 
 ### Open all folder files
 
-![Open All Folder Files Example](resources/OpenAllFolderFiles.gif 'Open All Folder Files Example')
+<img src="resources/OpenAllFolderFiles.gif" alt="Open All Folder Files Example" width="100%" />
 
 ### Open file in the default browser
 
-![Open File in Default Browser Example](resources/OpenFileInDefaultBrowser.gif 'Open File in Default Browser Example')
+<img src="resources/OpenFileInDefaultBrowser.gif" alt="Open File in Default Browser Example" width="100%" />
 
 ## Keybindings
 
