@@ -106,8 +106,7 @@
     "eslint:lint": "yarn eslint . --ext .js,.jsx,.ts,.tsx",
     "eslint:fix": "yarn eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "clean:dist": "rimraf dist",
-    "clean:modules": "rimraf node_modules",
-    "test": "jest"
+    "clean:modules": "rimraf node_modules"
   },
   "devDependencies": {
     "@types/node": "^16.7.1",
