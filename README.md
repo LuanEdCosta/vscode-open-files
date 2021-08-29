@@ -62,11 +62,11 @@ Are you tired of opening every file manually? This extension is for you :open_mo
 
 ## :bookmark_tabs: Changelog
 
-See all release notes in the [CHANGELOG.md](https://github.com/LuanEdCosta/vscode-open-files/blob/master/CHANGELOG.md) file.
+See all release notes in the [CHANGELOG.md](CHANGELOG.md) file.
 
 ## :scroll: License
 
-This extension is under the [MIT License](https://github.com/LuanEdCosta/vscode-open-files/blob/master/LICENSE)
+This extension is under the [MIT License](LICENSE)
 
 ## :man: Authors
 

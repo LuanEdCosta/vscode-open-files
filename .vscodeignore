@@ -1,11 +1,24 @@
-.vscode/**
-.vscode-test/**
-out/**
-src/**
-.gitignore
+# Project Folders
+node_modules/
+.vscode-test/
+.vscode/
+testing/
+build/
+out/
+src/
+
+# Files
 .yarnrc
-vsc-extension-quickstart.md
-**/tsconfig.json
-**/.eslintrc.json
+.gitignore
+.editorconfig
+.eslintrc.json
+.eslintignore
+.prettierrc.js
+.prettierignore
+
+tsconfig.json
+resources/ExtensionLogo.svg
+
+# Files in any folder
 **/*.map
 **/*.ts
