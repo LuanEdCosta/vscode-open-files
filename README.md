@@ -26,6 +26,20 @@ Are you tired of opening every file manually? This extension is for you :open_mo
 - Open all folder files
 - Open file in the default browser
 
+## :zap: Usage
+
+### Open related files
+
+![Open Related Files Example](resources/OpenRelatedFiles.gif 'Open Related Files Example')
+
+### Open all folder files
+
+![Open All Folder Files Example](resources/OpenAllFolderFiles.gif 'Open All Folder Files Example')
+
+### Open file in the default browser
+
+![Open File in Default Browser Example](resources/OpenFileInDefaultBrowser.gif 'Open File in Default Browser Example')
+
 ## :keyboard: Keybindings
 
 **Windows**
