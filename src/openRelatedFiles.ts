@@ -5,6 +5,10 @@ import fastGlob from 'fast-glob'
 export class OpenRelatedFiles {
   public disposable: vscode.Disposable
 
+  private _getActiveDocumentFsPath(): string | undefined {
+    return vscode.window.activeTextEditor?.document?.uri?.fsPath
+  }
+
   private _getFileNamesToSearchAndPathToIgnore(
     rootPath: string,
     filePath: string,
@@ -59,7 +63,7 @@ export class OpenRelatedFiles {
       path: path.resolve(rootPath, selectedFilePath),
     })
 
-    vscode.commands.executeCommand('vscode.open', uri, {
+    await vscode.commands.executeCommand('vscode.open', uri, {
       preview: false,
       preserveFocus: true,
     })
@@ -72,12 +76,13 @@ export class OpenRelatedFiles {
     }
 
     const [rootFolder] = vscode.workspace.workspaceFolders
+    const fileFsPath = params?.fsPath || this._getActiveDocumentFsPath()
 
-    if (params) {
+    if (fileFsPath) {
       const { filesNamesToSearch, pathToIgnore } =
         this._getFileNamesToSearchAndPathToIgnore(
           rootFolder.uri.fsPath,
-          params.fsPath,
+          fileFsPath,
         )
 
       await this._findRelatedFilesAndOpen(

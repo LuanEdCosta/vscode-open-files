@@ -15,7 +15,6 @@ export class OpenFileInDefaultBrowser {
     try {
       const fsPath = params?.fsPath || this._getActiveDocumentFsPath()
 
-      console.log(params)
       if (fsPath && this._canOpenInDefaultBrowser(fsPath)) {
         await open(fsPath)
         return
