@@ -1,4 +1,4 @@
-# :open_file_folder: Open Files
+# Open Files
 
   <div>
     <a href="https://github.com/LuanEdCosta/vscode-open-files/blob/master/LICENSE">
@@ -18,15 +18,15 @@
 
 ---
 
-Are you tired of opening every file manually? This extension is for you :open_mouth:
+Are you tired of opening every file manually? This extension is for you.
 
-## :fire: All Features
+## All Features
 
 - Open related files
 - Open all folder files
 - Open file in the default browser
 
-## :zap: Usage
+## Usage
 
 ### Open related files
 
@@ -40,7 +40,7 @@ Are you tired of opening every file manually? This extension is for you :open_mo
 
 ![Open File in Default Browser Example](resources/OpenFileInDefaultBrowser.gif 'Open File in Default Browser Example')
 
-## :keyboard: Keybindings
+## Keybindings
 
 **Windows**
 
@@ -54,21 +54,21 @@ Are you tired of opening every file manually? This extension is for you :open_mo
 - `CMD + ALT + O` - Open all folder files
 - `CMD + ALT + B` - Open file in the default browser
 
-## :bulb: TODO
+## TODO
 
 - Create command to open file in specific browser
 - Create command to configure files to open together
 - Open all parent folder files when execute the `openAllFolderFiles` command with a file opened on the editor
 
-## :bookmark_tabs: Changelog
+## Changelog
 
 See all release notes in the [CHANGELOG.md](CHANGELOG.md) file.
 
-## :scroll: License
+## License
 
 This extension is under the [MIT License](LICENSE)
 
-## :man: Authors
+## Authors
 
 - Luan Eduardo da Costa | [Github](https://github.com/LuanEdCosta) | [Follow on Linkedin](https://www.linkedin.com/in/luan-eduardo-costa-aaab591a7/)
 - Kassio Aguirres Oliveira Barbosa | [Github](https://github.com/kassiogto) | [Follow on Linkedin](https://www.linkedin.com/in/k%C3%A1ssio-aguirres-191bbb197/)
