@@ -40,23 +40,16 @@ Are you tired of opening every file manually? This extension is for you :open_mo
 - `CMD + ALT + O` - Open all folder files
 - `CMD + ALT + B` - Open file in the default browser
 
-## :bookmark_tabs: Release Notes
-
-### 0.1.0
-
-Initial release of the extension.
-
-**Features**
-
-- Open related files
-- Open all folder files
-- Open file in default browser
-
 ## :bulb: TODO
 
+- Create automated tests
 - Create command to open file in specific browser
 - Create command to configure files to open together
 - Open all parent folder files when execute the `openAllFolderFiles` command with a file opened on the editor
+
+## :bookmark_tabs: Changelog
+
+See all release notes in the [CHANGELOG.md](https://github.com/LuanEdCosta/vscode-open-files/blob/master/CHANGELOG.md) file.
 
 ## :scroll: License
 
