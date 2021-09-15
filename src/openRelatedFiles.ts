@@ -110,7 +110,7 @@ export class OpenRelatedFiles {
       await this._findRelatedFilesAndOpen(rootFolder.uri.fsPath, [
         fileNameToSearch,
       ])
-    } catch (e) {
+    } catch (e: any) {
       vscode.window.showErrorMessage(e.message)
     }
   }

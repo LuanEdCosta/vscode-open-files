@@ -41,7 +41,7 @@ export class OpenFileInDefaultBrowser {
       vscode.window.showInformationMessage(
         `The file "${typedFilePath}" was not found`,
       )
-    } catch (e) {
+    } catch (e: any) {
       vscode.window.showErrorMessage(e.message)
     }
   }

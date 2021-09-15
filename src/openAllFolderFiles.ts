@@ -55,7 +55,7 @@ export class OpenAllFolderFiles {
       }
 
       await this._selectFolderToOpen()
-    } catch (e) {
+    } catch (e: any) {
       vscode.window.showErrorMessage(e.message)
     }
   }
