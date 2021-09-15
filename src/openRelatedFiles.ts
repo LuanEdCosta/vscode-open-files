@@ -14,7 +14,8 @@ export class OpenRelatedFiles {
     filePath: string,
   ) {
     const { name } = path.parse(filePath)
-    const nameParts = name.split('.')
+    const nameParts = name.split('.').filter((namePart) => !!namePart.trim())
+
     const filesNamesToSearch = nameParts.map((_, index) =>
       nameParts.slice(0, index + 1).join('.'),
     )
@@ -35,15 +36,15 @@ export class OpenRelatedFiles {
   ) {
     const filesNames = await fastGlob(
       filesNamesToSearch.map((fileName) => {
-        return `**/${fileName}*.*`
+        return `**/${fileName}*`
       }),
       {
         unique: true,
         cwd: rootPath,
         onlyFiles: true,
         ignore: pathToIgnore
-          ? ['node_modules', pathToIgnore]
-          : ['node_modules'],
+          ? ['**/node_modules/**', pathToIgnore]
+          : ['**/node_modules/**'],
       },
     )
 
