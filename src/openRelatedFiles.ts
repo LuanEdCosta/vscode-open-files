@@ -2,7 +2,7 @@ import path from 'path'
 import * as vscode from 'vscode'
 import fastGlob from 'fast-glob'
 
-import { getActiveDocumentFsPath } from './utils'
+import { getActiveDocumentFsPath, getRootFolderUri } from './utils'
 
 const getFileNamesToSearchAndPathToIgnore = (
   rootPath: string,
@@ -72,15 +72,15 @@ const openRelatedFiles = async (uri?: vscode.Uri) => {
       return
     }
 
-    const [rootFolder] = vscode.workspace.workspaceFolders
+    const rootFolderUri = getRootFolderUri() as vscode.Uri
     const fileFsPath = uri?.fsPath || getActiveDocumentFsPath()
 
     if (fileFsPath) {
       const { filesNamesToSearch, pathToIgnore } =
-        getFileNamesToSearchAndPathToIgnore(rootFolder.uri.fsPath, fileFsPath)
+        getFileNamesToSearchAndPathToIgnore(rootFolderUri.fsPath, fileFsPath)
 
       await findRelatedFilesAndOpen(
-        rootFolder.uri.fsPath,
+        rootFolderUri.fsPath,
         filesNamesToSearch,
         pathToIgnore,
       )
@@ -100,7 +100,7 @@ const openRelatedFiles = async (uri?: vscode.Uri) => {
 
     if (!fileNameToSearch) return
 
-    await findRelatedFilesAndOpen(rootFolder.uri.fsPath, [fileNameToSearch])
+    await findRelatedFilesAndOpen(rootFolderUri.fsPath, [fileNameToSearch])
   } catch (e: any) {
     vscode.window.showErrorMessage(e.message)
   }
