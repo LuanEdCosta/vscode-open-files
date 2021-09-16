@@ -5,7 +5,10 @@ export class OpenAllFolderFiles {
   public disposable: vscode.Disposable
 
   private async _findFilesAndOpen(folderName: string) {
-    const uriArray = await vscode.workspace.findFiles(`${folderName}/**`)
+    const uriArray = await vscode.workspace.findFiles(
+      `${folderName}/**`,
+      '**​/node_modules/**',
+    )
 
     if (!uriArray.length) {
       vscode.window.showInformationMessage('The selected folder is empty')
@@ -28,7 +31,7 @@ export class OpenAllFolderFiles {
     const folderNames = await fastGlob('**', {
       cwd: rootFolder.uri.fsPath,
       onlyDirectories: true,
-      ignore: ['node_modules'],
+      ignore: ['**/node_modules/**'],
     })
 
     const selectedFolder = await vscode.window.showQuickPick(folderNames, {
