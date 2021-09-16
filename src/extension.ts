@@ -3,6 +3,7 @@ import * as vscode from 'vscode'
 import { openRelatedFiles } from './openRelatedFiles'
 import { openAllFolderFiles } from './openAllFolderFiles'
 import { openFileInDefaultBrowser } from './openFileInDefaultBrowser'
+import { openAllFolderFilesRecursively } from './openAllFolderFilesRecursively'
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
@@ -17,6 +18,10 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand(
       'vscode-open-files.openFileInDefaultBrowser',
       openFileInDefaultBrowser,
+    ),
+    vscode.commands.registerCommand(
+      'vscode-open-files.openAllFolderFilesRecursively',
+      openAllFolderFilesRecursively,
     ),
   )
 }

@@ -22,6 +22,7 @@ Are you tired of opening every file manually? This extension is for you.
 - Open related files
 - Open all folder files
 - Open file in the default browser
+- Open all folder files recursively
 
 ## Usage
 
@@ -44,6 +45,7 @@ Are you tired of opening every file manually? This extension is for you.
 - `CTRL + ALT + R` - Open related files
 - `CTRL + ALT + O` - Open all folder files
 - `CTRL + ALT + B` - Open file in the default browser
+- `CTRL + ALT + Y` - Open all folder files recursively
 
 **Mac**
 

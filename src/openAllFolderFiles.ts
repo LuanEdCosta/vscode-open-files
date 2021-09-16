@@ -2,32 +2,46 @@ import path from 'path'
 import * as vscode from 'vscode'
 import fastGlob from 'fast-glob'
 
-const findFilesAndOpen = async (folderName: string) => {
-  const uriArray = await vscode.workspace.findFiles(
-    `${folderName}/**`,
-    '**​/node_modules/**',
-  )
+import { getRootFolderUri } from './utils'
 
-  if (!uriArray.length) {
+interface OpenAllFolderFilesOptions {
+  recursive: boolean
+}
+
+const findFilesAndOpen = async (
+  folderPath: string,
+  options?: OpenAllFolderFilesOptions,
+) => {
+  const rootFolderUri = getRootFolderUri() as vscode.Uri
+  const shouldFindFilesRecursively = options?.recursive || false
+  const folderFsPath = path.resolve(rootFolderUri.fsPath, folderPath)
+
+  const fileNames = await fastGlob(shouldFindFilesRecursively ? '**/*' : '*', {
+    cwd: folderFsPath,
+    onlyFiles: true,
+    ignore: ['**/node_modules/**'],
+  })
+
+  if (!fileNames.length) {
     vscode.window.showInformationMessage('The selected folder is empty')
     return
   }
 
-  uriArray.forEach((uri) => {
-    vscode.commands.executeCommand('vscode.open', uri, {
+  fileNames.forEach((fileName) => {
+    const filePath = path.resolve(folderFsPath, fileName)
+    const fileUri = vscode.Uri.file(filePath)
+    vscode.commands.executeCommand('vscode.open', fileUri, {
       preview: false,
       preserveFocus: true,
     })
   })
 }
 
-const selectFolderToOpen = async () => {
-  const [rootFolder] = vscode.workspace.workspaceFolders || []
-
-  if (!rootFolder) return
+const selectFolderToOpen = async (options?: OpenAllFolderFilesOptions) => {
+  const rootFolderUri = getRootFolderUri() as vscode.Uri
 
   const folderNames = await fastGlob('**', {
-    cwd: rootFolder.uri.fsPath,
+    cwd: rootFolderUri.fsPath,
     onlyDirectories: true,
     ignore: ['**/node_modules/**'],
   })
@@ -38,10 +52,13 @@ const selectFolderToOpen = async () => {
 
   if (!selectedFolder) return
 
-  await findFilesAndOpen(selectedFolder)
+  await findFilesAndOpen(selectedFolder, options)
 }
 
-const openAllFolderFiles = async (uri?: vscode.Uri) => {
+const openAllFolderFiles = async (
+  uri?: vscode.Uri,
+  options?: OpenAllFolderFilesOptions,
+) => {
   try {
     if (!vscode.workspace.workspaceFolders) {
       vscode.window.showInformationMessage('No folder or workspace opened')
@@ -49,13 +66,13 @@ const openAllFolderFiles = async (uri?: vscode.Uri) => {
     }
 
     if (uri) {
-      const [rootFolder] = vscode.workspace.workspaceFolders
-      const folderPath = path.relative(rootFolder.uri.fsPath, uri.fsPath)
-      await findFilesAndOpen(folderPath)
+      const rootFolderUri = getRootFolderUri() as vscode.Uri
+      const folderPath = path.relative(rootFolderUri.fsPath, uri.fsPath)
+      await findFilesAndOpen(folderPath, options)
       return
     }
 
-    await selectFolderToOpen()
+    await selectFolderToOpen(options)
   } catch (e: any) {
     vscode.window.showErrorMessage(e.message)
   }

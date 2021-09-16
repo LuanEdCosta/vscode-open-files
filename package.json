@@ -32,6 +32,7 @@
   ],
   "activationEvents": [
     "onCommand:vscode-open-files.openAllFolderFiles",
+    "onCommand:vscode-open-files.openAllFolderFilesRecursively",
     "onCommand:vscode-open-files.openRelatedFiles",
     "onCommand:vscode-open-files.openFileInDefaultBrowser"
   ],
@@ -40,6 +41,10 @@
       {
         "command": "vscode-open-files.openAllFolderFiles",
         "title": "Open All Folder Files"
+      },
+      {
+        "command": "vscode-open-files.openAllFolderFilesRecursively",
+        "title": "Open All Folder Files Recursively"
       },
       {
         "command": "vscode-open-files.openRelatedFiles",
@@ -74,6 +79,11 @@
           "group": "open-files"
         },
         {
+          "command": "vscode-open-files.openAllFolderFilesRecursively",
+          "when": "explorerResourceIsFolder",
+          "group": "open-files"
+        },
+        {
           "command": "vscode-open-files.openRelatedFiles",
           "when": "!explorerResourceIsFolder",
           "group": "open-files"
@@ -90,6 +100,11 @@
         "command": "vscode-open-files.openAllFolderFiles",
         "key": "ctrl+alt+o",
         "mac": "cmd+alt+o"
+      },
+      {
+        "command": "vscode-open-files.openAllFolderFilesRecursively",
+        "key": "ctrl+alt+y",
+        "mac": "cmd+alt+y"
       },
       {
         "command": "vscode-open-files.openRelatedFiles",
