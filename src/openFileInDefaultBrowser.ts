@@ -1,56 +1,45 @@
 import * as vscode from 'vscode'
 import open from 'open'
-export class OpenFileInDefaultBrowser {
-  public disposable: vscode.Disposable
 
-  private _getActiveDocumentFsPath(): string | undefined {
-    return vscode.window.activeTextEditor?.document?.uri?.fsPath
-  }
+import { getActiveDocumentFsPath } from './utils'
 
-  private _canOpenInDefaultBrowser(fsPath: string | undefined): boolean {
-    return ['.html', '.md'].some((ext) => !!fsPath?.includes(ext))
-  }
+const canOpenInDefaultBrowser = (fsPath: string | undefined): boolean => {
+  return ['.html', '.md'].some((ext) => !!fsPath?.includes(ext))
+}
 
-  private async _openFileInDefaultBrowser(uri?: vscode.Uri) {
-    try {
-      const fsPath = uri?.fsPath || this._getActiveDocumentFsPath()
+const openFileInDefaultBrowser = async (uri?: vscode.Uri) => {
+  try {
+    const fsPath = uri?.fsPath || getActiveDocumentFsPath()
 
-      if (fsPath && this._canOpenInDefaultBrowser(fsPath)) {
-        await open(fsPath)
-        return
-      }
-
-      const typedFilePath = await vscode.window.showInputBox({
-        placeHolder: 'Type the file path. Ex: public/index.html',
-        prompt: 'You can only open one HTML or Markdown file',
-      })
-
-      if (!typedFilePath) return
-
-      const [foundFileUri] = await vscode.workspace.findFiles(
-        typedFilePath.trim(),
-        '**​/node_modules/**',
-        1,
-      )
-
-      if (foundFileUri && this._canOpenInDefaultBrowser(foundFileUri.fsPath)) {
-        await open(foundFileUri.fsPath)
-        return
-      }
-
-      vscode.window.showInformationMessage(
-        `The file "${typedFilePath}" was not found`,
-      )
-    } catch (e: any) {
-      vscode.window.showErrorMessage(e.message)
+    if (fsPath && canOpenInDefaultBrowser(fsPath)) {
+      await open(fsPath)
+      return
     }
-  }
 
-  constructor() {
-    this.disposable = vscode.commands.registerCommand(
-      'vscode-open-files.openFileInDefaultBrowser',
-      this._openFileInDefaultBrowser,
-      this,
+    const typedFilePath = await vscode.window.showInputBox({
+      placeHolder: 'Type the file path. Ex: public/index.html',
+      prompt: 'You can only open one HTML or Markdown file',
+    })
+
+    if (!typedFilePath) return
+
+    const [foundFileUri] = await vscode.workspace.findFiles(
+      typedFilePath.trim(),
+      '**​/node_modules/**',
+      1,
     )
+
+    if (foundFileUri && canOpenInDefaultBrowser(foundFileUri.fsPath)) {
+      await open(foundFileUri.fsPath)
+      return
+    }
+
+    vscode.window.showInformationMessage(
+      `The file "${typedFilePath}" was not found`,
+    )
+  } catch (e: any) {
+    vscode.window.showErrorMessage(e.message)
   }
 }
+
+export { openFileInDefaultBrowser }
