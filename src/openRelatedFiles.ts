@@ -70,7 +70,7 @@ export class OpenRelatedFiles {
     })
   }
 
-  private async _openRelatedFiles(params?: vscode.Uri) {
+  private async _openRelatedFiles(uri?: vscode.Uri) {
     try {
       if (!vscode.workspace.workspaceFolders) {
         vscode.window.showInformationMessage('No folder or workspace opened')
@@ -78,7 +78,7 @@ export class OpenRelatedFiles {
       }
 
       const [rootFolder] = vscode.workspace.workspaceFolders
-      const fileFsPath = params?.fsPath || this._getActiveDocumentFsPath()
+      const fileFsPath = uri?.fsPath || this._getActiveDocumentFsPath()
 
       if (fileFsPath) {
         const { filesNamesToSearch, pathToIgnore } =

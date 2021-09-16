@@ -11,9 +11,9 @@ export class OpenFileInDefaultBrowser {
     return ['.html', '.md'].some((ext) => !!fsPath?.includes(ext))
   }
 
-  private async _openFileInDefaultBrowser(params?: vscode.Uri) {
+  private async _openFileInDefaultBrowser(uri?: vscode.Uri) {
     try {
-      const fsPath = params?.fsPath || this._getActiveDocumentFsPath()
+      const fsPath = uri?.fsPath || this._getActiveDocumentFsPath()
 
       if (fsPath && this._canOpenInDefaultBrowser(fsPath)) {
         await open(fsPath)
