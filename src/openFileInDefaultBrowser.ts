@@ -1,10 +1,41 @@
 import * as vscode from 'vscode'
+import fastGlob from 'fast-glob'
 import open from 'open'
+import path from 'path'
 
-import { getActiveDocumentFsPath } from './utils'
+import { getActiveDocumentFsPath, getRootFolderUri } from './utils'
 
 const canOpenInDefaultBrowser = (fsPath: string | undefined): boolean => {
   return ['.html', '.md'].some((ext) => !!fsPath?.includes(ext))
+}
+
+const selectFileToOpenInTheBrowser = async () => {
+  const rootFolderUri = getRootFolderUri()
+
+  if (!rootFolderUri) {
+    vscode.window.showInformationMessage('No folder or workspace opened')
+    return
+  }
+
+  const fileNames = await fastGlob('**/*.{html,md}', {
+    cwd: rootFolderUri.fsPath,
+    onlyFiles: true,
+    ignore: ['**/node_modules/**'],
+  })
+
+  if (fileNames.length === 0) {
+    vscode.window.showInformationMessage('No HTML or Markdown files found')
+    return
+  }
+
+  const selectedFileName = await vscode.window.showQuickPick(fileNames, {
+    title: 'Select a file',
+  })
+
+  if (selectedFileName) {
+    const filePath = path.resolve(rootFolderUri.fsPath, selectedFileName)
+    await open(filePath)
+  }
 }
 
 const openFileInDefaultBrowser = async (uri?: vscode.Uri) => {
@@ -16,27 +47,7 @@ const openFileInDefaultBrowser = async (uri?: vscode.Uri) => {
       return
     }
 
-    const typedFilePath = await vscode.window.showInputBox({
-      placeHolder: 'Type the file path. Ex: public/index.html',
-      prompt: 'You can only open one HTML or Markdown file',
-    })
-
-    if (!typedFilePath) return
-
-    const [foundFileUri] = await vscode.workspace.findFiles(
-      typedFilePath.trim(),
-      '**​/node_modules/**',
-      1,
-    )
-
-    if (foundFileUri && canOpenInDefaultBrowser(foundFileUri.fsPath)) {
-      await open(foundFileUri.fsPath)
-      return
-    }
-
-    vscode.window.showInformationMessage(
-      `The file "${typedFilePath}" was not found`,
-    )
+    await selectFileToOpenInTheBrowser()
   } catch (e: any) {
     vscode.window.showErrorMessage(e.message)
   }
