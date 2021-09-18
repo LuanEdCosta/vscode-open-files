@@ -47,7 +47,7 @@ const selectFolderToOpen = async (options?: OpenAllFolderFilesOptions) => {
   })
 
   const selectedFolder = await vscode.window.showQuickPick(folderNames, {
-    title: 'Select a Folder',
+    title: 'Select a folder',
   })
 
   if (!selectedFolder) return

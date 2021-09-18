@@ -49,7 +49,7 @@ const findRelatedFilesAndOpen = async (
   }
 
   const selectedFilePath = await vscode.window.showQuickPick(filesNames, {
-    title: 'Select Files To Open',
+    title: 'Select files to open',
   })
 
   if (!selectedFilePath) return
