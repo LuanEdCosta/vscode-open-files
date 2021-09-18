@@ -55,8 +55,6 @@ Are you tired of opening every file manually? This extension is for you.
 
 ## TODO
 
-- Open last opened file
-- Show list of opened files
 - Create command to open file in specific browser
 - Create command to configure files to open together
 
