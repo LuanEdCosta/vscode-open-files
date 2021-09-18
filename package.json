@@ -63,6 +63,15 @@
           "group": "open-files"
         },
         {
+          "command": "vscode-open-files.openAllFolderFiles",
+          "title": "Pow",
+          "group": "open-files"
+        },
+        {
+          "command": "vscode-open-files.openAllFolderFilesRecursively",
+          "group": "open-files"
+        },
+        {
           "command": "vscode-open-files.openRelatedFiles",
           "group": "open-files"
         }
