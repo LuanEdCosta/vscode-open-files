@@ -26,17 +26,7 @@ Are you tired of opening every file manually? This extension is for you.
 
 ## Usage
 
-### Open related files
-
-<img src="resources/OpenRelatedFiles.gif" alt="Open Related Files Example" width="100%" />
-
-### Open all folder files
-
-<img src="resources/OpenAllFolderFiles.gif" alt="Open All Folder Files Example" width="100%" />
-
-### Open file in the default browser
-
-<img src="resources/OpenFileInDefaultBrowser.gif" alt="Open File in Default Browser Example" width="100%" />
+<img src="resources/Tutorial.jpg" alt="Open Files Extension Tutorial" width="100%" />
 
 ## Keybindings
 
@@ -52,6 +42,7 @@ Are you tired of opening every file manually? This extension is for you.
 - `CMD + ALT + R` - Open related files
 - `CMD + ALT + O` - Open all folder files
 - `CMD + ALT + B` - Open file in the default browser
+- `CMD + ALT + Y` - Open all folder files recursively
 
 ## TODO
 
