@@ -19,6 +19,7 @@ const findFilesAndOpen = async (
   const fileNames = await fastGlob(shouldFindFilesRecursively ? '**/*' : '*', {
     cwd: folderFsPath,
     onlyFiles: true,
+    dot: true,
     ignore: ['**/node_modules/**'],
   })
 
