@@ -1,7 +1,7 @@
 {
   "name": "vscode-open-files",
   "displayName": "Open Files",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "publisher": "LuanEduardoCosta",
   "description": "You can open related files, all files in a folder, open file in the browser and configure files to open together",
