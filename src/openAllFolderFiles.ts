@@ -2,7 +2,7 @@ import * as vscode from 'vscode'
 import fastGlob from 'fast-glob'
 import path from 'path'
 
-import { getActiveDocumentFsPath, getRootFolderUri } from './utils'
+import { getActiveDocumentUri, getRootFolderUri } from './utils'
 
 interface OpenAllFolderFilesOptions {
   recursive: boolean
@@ -65,16 +65,16 @@ const openAllFolderFiles = async (
       return
     }
 
-    const activeDocumentFsPath = getActiveDocumentFsPath()
+    const activeDocumentUri = getActiveDocumentUri()
 
     let fsPath = ''
 
-    if (uri) {
+    if (uri && uri.scheme !== 'untitled') {
       const { type } = await vscode.workspace.fs.stat(uri)
       const isFile = type === vscode.FileType.File
       fsPath = isFile ? path.dirname(uri.fsPath) : uri.fsPath
-    } else if (activeDocumentFsPath) {
-      fsPath = path.dirname(activeDocumentFsPath)
+    } else if (activeDocumentUri && activeDocumentUri.scheme !== 'untitled') {
+      fsPath = path.dirname(activeDocumentUri.fsPath)
     }
 
     if (fsPath) {

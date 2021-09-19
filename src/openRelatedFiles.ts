@@ -2,7 +2,7 @@ import path from 'path'
 import * as vscode from 'vscode'
 import fastGlob from 'fast-glob'
 
-import { getActiveDocumentFsPath, getRootFolderUri } from './utils'
+import { getActiveDocumentUri, getRootFolderUri } from './utils'
 
 const getFileNamesToSearchAndPathToIgnore = (
   rootPath: string,
@@ -73,11 +73,14 @@ const openRelatedFiles = async (uri?: vscode.Uri) => {
     }
 
     const rootFolderUri = getRootFolderUri() as vscode.Uri
-    const fileFsPath = uri?.fsPath || getActiveDocumentFsPath()
+    const fileUri = uri || getActiveDocumentUri()
 
-    if (fileFsPath) {
+    if (fileUri && fileUri?.scheme !== 'untitled') {
       const { filesNamesToSearch, pathToIgnore } =
-        getFileNamesToSearchAndPathToIgnore(rootFolderUri.fsPath, fileFsPath)
+        getFileNamesToSearchAndPathToIgnore(
+          rootFolderUri.fsPath,
+          fileUri.fsPath,
+        )
 
       await findRelatedFilesAndOpen(
         rootFolderUri.fsPath,
