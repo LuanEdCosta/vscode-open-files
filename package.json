@@ -83,12 +83,10 @@
         },
         {
           "command": "vscode-open-files.openAllFolderFiles",
-          "when": "explorerResourceIsFolder",
           "group": "open-files"
         },
         {
           "command": "vscode-open-files.openAllFolderFilesRecursively",
-          "when": "explorerResourceIsFolder",
           "group": "open-files"
         },
         {
