@@ -19,10 +19,10 @@ Are you tired of opening every file manually? This extension is for you.
 
 ## All Features
 
-- Open related files
-- Open all folder files
-- Open file in the default browser
-- Open all folder files recursively
+- Open related files.
+- Open all folder files.
+- Open file in the default browser.
+- Open all folder files recursively.
 
 ## Usage
 
@@ -32,22 +32,22 @@ Are you tired of opening every file manually? This extension is for you.
 
 **Windows**
 
-- `CTRL + ALT + R` - Open related files
-- `CTRL + ALT + O` - Open all folder files
-- `CTRL + ALT + B` - Open file in the default browser
-- `CTRL + ALT + Y` - Open all folder files recursively
+- `CTRL + ALT + R` - Open related files.
+- `CTRL + ALT + O` - Open all folder files.
+- `CTRL + ALT + B` - Open file in the default browser.
+- `CTRL + ALT + Y` - Open all folder files recursively.
 
 **Mac**
 
-- `CMD + ALT + R` - Open related files
-- `CMD + ALT + O` - Open all folder files
-- `CMD + ALT + B` - Open file in the default browser
-- `CMD + ALT + Y` - Open all folder files recursively
+- `CMD + ALT + R` - Open related files.
+- `CMD + ALT + O` - Open all folder files.
+- `CMD + ALT + B` - Open file in the default browser.
+- `CMD + ALT + Y` - Open all folder files recursively.
 
 ## TODO
 
-- Create command to open file in specific browser
-- Create command to configure files to open together
+- Create command to open file in specific browser.
+- Create command to configure files to open together.
 
 ## Changelog
 
@@ -55,7 +55,7 @@ See all release notes in the [CHANGELOG.md](CHANGELOG.md) file.
 
 ## License
 
-This extension is under the [MIT License](LICENSE)
+This extension is under the [MIT License](LICENSE).
 
 ## Authors
 
